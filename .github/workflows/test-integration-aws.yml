@@ -1,0 +1,23 @@
+name: Integration with Released OpenSearch
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Checkout Branch
+        uses: actions/checkout@v2
+
+      - name: Run Integration Test
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: ./gradlew clean integrationTest -D tests.awsSdk2support.domainHost=${{ secrets.DOMAIN_HOST }} -D tests.awsSdk2support.domainRegion=${{ secrets.DOMAIN_REGION }} -D tests.awsSdk2support.serviceName=${{ secrets.SERVICE_NAME }}
