@@ -20,4 +20,4 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: ./gradlew clean integrationTest -D tests.awsSdk2support.domainHost=${{ secrets.DOMAIN_HOST }} -D tests.awsSdk2support.domainRegion=${{ secrets.DOMAIN_REGION }} -D tests.awsSdk2support.serviceName=${{ secrets.SERVICE_NAME }}
+        run: ./gradlew clean integrationTest --tests "*AwsSdk2*" -D tests.awsSdk2support.domainHost=${{ secrets.DOMAIN_HOST }} -D tests.awsSdk2support.domainRegion=${{ secrets.DOMAIN_REGION }} -D tests.awsSdk2support.serviceName=${{ secrets.SERVICE_NAME }}
