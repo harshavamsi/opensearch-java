@@ -1,4 +1,4 @@
-name: Integration with Released OpenSearch
+name: Integration with AWS
 
 on: [push, pull_request]
 
