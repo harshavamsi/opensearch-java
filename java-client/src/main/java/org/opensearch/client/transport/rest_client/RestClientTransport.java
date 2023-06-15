@@ -70,6 +70,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * @deprecated in favor of
+ *             {@link org.opensearch.client.transport.httpclient5.ApacheHttpClient5Transport
+ *             ApacheHttpClient5Transport}
+ */
+@Deprecated
 public class RestClientTransport implements OpenSearchTransport {
 
     static final ContentType JsonContentType = ContentType.APPLICATION_JSON;
@@ -95,12 +101,24 @@ public class RestClientTransport implements OpenSearchTransport {
     private final JsonpMapper mapper;
     private final RestClientOptions transportOptions;
 
+    /**
+     * @deprecated in favor of
+     *             {@link org.opensearch.client.transport.httpclient5.ApacheHttpClient5Transport
+     *             ApacheHttpClient5Transport}
+     */
+    @Deprecated
     public RestClientTransport(RestClient restClient, JsonpMapper mapper, @Nullable TransportOptions options) {
         this.restClient = restClient;
         this.mapper = mapper;
         this.transportOptions = options == null ? RestClientOptions.initialOptions() : RestClientOptions.of(options);
     }
 
+    /**
+     * @deprecated in favor of
+     *             {@link org.opensearch.client.transport.httpclient5.ApacheHttpClient5Transport
+     *             ApacheHttpClient5Transport}
+     */
+    @Deprecated
     public RestClientTransport(RestClient restClient, JsonpMapper mapper) {
         this(restClient, mapper, null);
     }
@@ -108,6 +126,7 @@ public class RestClientTransport implements OpenSearchTransport {
     /**
      * Returns the underlying low level Rest Client used by this transport.
      */
+    @Deprecated
     public RestClient restClient() {
         return this.restClient;
     }
@@ -115,25 +134,30 @@ public class RestClientTransport implements OpenSearchTransport {
     /**
      * Copies this {@link #RestClientTransport} with specific request options.
      */
+    @Deprecated
     public RestClientTransport withRequestOptions(@Nullable TransportOptions options) {
         return new RestClientTransport(this.restClient, this.mapper, options);
     }
 
     @Override
+    @Deprecated
     public JsonpMapper jsonpMapper() {
         return mapper;
     }
 
     @Override
+    @Deprecated
     public TransportOptions options() {
         return transportOptions;
     }
 
     @Override
+    @Deprecated
     public void close() throws IOException {
         this.restClient.close();
     }
 
+    @Deprecated
     public <RequestT, ResponseT, ErrorT> ResponseT performRequest(
         RequestT request,
         Endpoint<RequestT, ResponseT, ErrorT> endpoint,
@@ -145,6 +169,7 @@ public class RestClientTransport implements OpenSearchTransport {
         return getHighLevelResponse(clientResp, endpoint);
     }
 
+    @Deprecated
     public <RequestT, ResponseT, ErrorT> CompletableFuture<ResponseT> performRequestAsync(
         RequestT request,
         Endpoint<RequestT, ResponseT, ErrorT> endpoint,
@@ -180,6 +205,7 @@ public class RestClientTransport implements OpenSearchTransport {
         return future;
     }
 
+    @Deprecated
     private <RequestT> org.opensearch.client.Request prepareLowLevelRequest(
         RequestT request,
         Endpoint<RequestT, ?, ?> endpoint,
@@ -224,6 +250,7 @@ public class RestClientTransport implements OpenSearchTransport {
      * Write an nd-json value by serializing each of its items on a separate line, recursing if its items themselves implement
      * {@link NdJsonpSerializable} to flattening nested structures.
      */
+    @Deprecated
     private void writeNdJson(NdJsonpSerializable value, ByteArrayOutputStream baos) {
         Iterator<?> values = value._serializables();
         while(values.hasNext()) {
@@ -239,6 +266,7 @@ public class RestClientTransport implements OpenSearchTransport {
         }
     }
 
+    @Deprecated
     private <ResponseT, ErrorT> ResponseT getHighLevelResponse(
         org.opensearch.client.Response clientResp,
         Endpoint<?, ResponseT, ErrorT> endpoint
@@ -296,6 +324,7 @@ public class RestClientTransport implements OpenSearchTransport {
         }
     }
 
+    @Deprecated
     private <ResponseT> ResponseT decodeResponse(
         int statusCode, @Nullable HttpEntity entity, Response clientResp, Endpoint<?, ResponseT, ?> endpoint
     ) throws IOException {
